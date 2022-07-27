@@ -51,7 +51,7 @@ namespace Task_2
 
         private ExportParametersViewModel CreateExportParametersViewModel()
         {
-            return new ExportParametersViewModel(_navigationStore, CreateMainWindowViewModel);
+            return new ExportParametersViewModel(_peopleLibrary, _navigationStore, CreateMainWindowViewModel);
         }
     }
 }

@@ -11,8 +11,8 @@ using Task_2.Model;
 using Task_2.ViewModels;
 
 namespace Task_2.Commands
-{
-    public class ImportCSVCommand : AsyncCommandBase    
+{    
+    public class ImportCSVCommand : CommandBase
     {
         private readonly PeopleLibrary _peopleLibrary;
         private readonly MainWindowViewModel _mainWindowViewModel;        
@@ -29,19 +29,25 @@ namespace Task_2.Commands
         {
             return _peopleLibrary.IsLibraryEmpty();            
         }
-
-        public override async Task ExecuteAsync(object parameter)
-        {           
-            var lines = File.ReadAllLines("Users.csv");
-
-            foreach (var line in lines)
+        
+        public override async void Execute(object? parameter)
+        {
+            await foreach (var item in FetchItems())
             {
-                var values = line.Split(',');
-                Card card = new Card(values[0], values[1], values[1], values[3], values[4]);
+                var values = item.Split(',');
+                Card card = new Card(values[0], values[1], values[2], values[3], values[4]);
                 await _peopleLibrary.CreateCard(card);
-            }         
-            
+            }
+
             new LoadCardsCommand(_peopleLibrary, _mainWindowViewModel).Execute(null);
-        }    
+        }
+
+        public async IAsyncEnumerable<string> FetchItems()
+        {
+            using StreamReader reader = File.OpenText("Users.csv");
+            while (!reader.EndOfStream)
+                yield return await reader.ReadLineAsync();
+        }        
     }
+
 }

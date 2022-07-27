@@ -32,8 +32,8 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 Margin="10 5 0 0"
-                Content="Export XML"
-                Command="{Binding ExportXML}"/>
+                Content="Export"
+                Command="{Binding Export}"/>
         </Grid>
 
         <ListView

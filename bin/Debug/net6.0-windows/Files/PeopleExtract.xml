@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestProgram>
+  <Record Id="1">
+    <LoadDate>22.06.2022</LoadDate>
+    <FirstName>Donald</FirstName>
+    <LastName>Donald</LastName>
+    <County>England</County>
+    <City>London</City>
+  </Record>
+  <Record Id="2">
+    <LoadDate>22.06.2022</LoadDate>
+    <FirstName>Douglas</FirstName>
+    <LastName>Douglas</LastName>
+    <County>United States</County>
+    <City>Chicago</City>
+  </Record>
+  <Record Id="3">
+    <LoadDate>22.06.2022</LoadDate>
+    <FirstName>Jennifer</FirstName>
+    <LastName>Jennifer</LastName>
+    <County>England</County>
+    <City>London</City>
+  </Record>
+  <Record Id="4">
+    <LoadDate>22.06.2022</LoadDate>
+    <FirstName>Michael</FirstName>
+    <LastName>Michael</LastName>
+    <County>United States</County>
+    <City>Chicago</City>
+  </Record>
+  <Record Id="5">
+    <LoadDate>22.06.2022</LoadDate>
+    <FirstName>Pat</FirstName>
+    <LastName>Pat</LastName>
+    <County>England</County>
+    <City>London</City>
+  </Record>
+</TestProgram>

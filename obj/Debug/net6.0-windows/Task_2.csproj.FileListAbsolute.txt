@@ -116,3 +116,8 @@ D:\IBA\Learning\.Net\C#\Projects\csharp_task_2\obj\Debug\net6.0-windows\refint\T
 D:\IBA\Learning\.Net\C#\Projects\csharp_task_2\obj\Debug\net6.0-windows\Task_2.pdb
 D:\IBA\Learning\.Net\C#\Projects\csharp_task_2\obj\Debug\net6.0-windows\Task_2.genruntimeconfig.cache
 D:\IBA\Learning\.Net\C#\Projects\csharp_task_2\obj\Debug\net6.0-windows\ref\Task_2.dll
+D:\IBA\Learning\.Net\C#\Projects\csharp_task_2\obj\Debug\net6.0-windows\Task_2_Content.g.cs
+D:\IBA\Learning\.Net\C#\Projects\csharp_task_2\bin\Debug\net6.0-windows\Files\PeopleExtract.xml
+D:\IBA\Learning\.Net\C#\Projects\csharp_task_2\bin\Debug\net6.0-windows\ClosedXML.dll
+D:\IBA\Learning\.Net\C#\Projects\csharp_task_2\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.dll
+D:\IBA\Learning\.Net\C#\Projects\csharp_task_2\bin\Debug\net6.0-windows\ExcelNumberFormat.dll
