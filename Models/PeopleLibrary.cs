@@ -24,6 +24,11 @@ namespace Task_2.Model
             return await _cardRepository.GetAllCards();
         }
 
+        public async Task<IEnumerable<Card>> GetFilteredCards(Card cardFilter)
+        {
+            return await _cardRepository.GetFilteredCards(cardFilter);
+        }       
+
         public async Task CreateCard(Card card)
         {
             await _cardRepository.CreateCard(card);

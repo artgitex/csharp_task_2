@@ -20,7 +20,7 @@ namespace Task_2.ViewModels
         public IEnumerable<CardViewModel> Cards => _cards;
         public ICommand ImportCSV { get; }
         public ICommand LoadCards { get; }
-        public ICommand ExportXML { get; }
+        public ICommand Export { get; }
 
         public MainWindowViewModel(PeopleLibrary peopleLibrary, NavigationStore navigationStore, Func<ExportParametersViewModel> createExportParametersViewModel)
         {
@@ -29,7 +29,7 @@ namespace Task_2.ViewModels
 
             ImportCSV = new ImportCSVCommand(peopleLibrary, this);
             LoadCards = new LoadCardsCommand(_peopleLibrary, this);
-            ExportXML = new NavigateCommand(navigationStore, createExportParametersViewModel);                  
+            Export = new NavigateCommand(navigationStore, createExportParametersViewModel);                  
         }
                 
         public static MainWindowViewModel LoadViewModel(PeopleLibrary peopleLibrary, NavigationStore navigationStore, Func<ExportParametersViewModel> createExportParametersViewModel)

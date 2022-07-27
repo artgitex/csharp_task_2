@@ -40,8 +40,6 @@ namespace Task_2.Commands
                 IsExecuting = false;
             }
         }
-
-        public abstract Task ExecuteAsync(object parameter);        
-
+        public abstract Task ExecuteAsync(object parameter);
     }
 }

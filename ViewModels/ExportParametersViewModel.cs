@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Task_2.Commands;
+using Task_2.Model;
 
 namespace Task_2.ViewModels
 {
@@ -81,12 +82,14 @@ namespace Task_2.ViewModels
             }
         }
 
-        public ICommand SubmitCommand { get; }
+        public ICommand XMLCommand { get; }
+        public ICommand XLSCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public ExportParametersViewModel(NavigationStore navigationStore, Func<MainWindowViewModel> createMainWindowViewModel)
+        public ExportParametersViewModel(PeopleLibrary peopleLibrary, NavigationStore navigationStore, Func<MainWindowViewModel> createMainWindowViewModel)
         {
-            SubmitCommand = new SubmitCommand(this);
+            XMLCommand = new SubmitCommand(peopleLibrary, this, "xml");
+            XLSCommand = new SubmitCommand(peopleLibrary, this, "xls");
             CancelCommand = new NavigateCommand(navigationStore, createMainWindowViewModel);
         }
     }
