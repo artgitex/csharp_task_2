@@ -12,11 +12,11 @@ namespace Task_2.Services
 {
     public class CardRepository : ICardRepository
     {        
-        public async Task CreateCard(Card card)
+        public async Task CreateCards(List<Card> cards)
         {
             using (PeopleLibraryDbContext db = new PeopleLibraryDbContext())
             {
-                db.Cards.Add(card);
+                db.Cards.AddRange(cards);
                 await db.SaveChangesAsync();
             }
         }     

@@ -19,6 +19,7 @@ namespace Task_2.ViewModels
         
         public IEnumerable<CardViewModel> Cards => _cards;
         public ICommand ImportCSV { get; }
+        public ICommand ShowData { get; }
         public ICommand LoadCards { get; }
         public ICommand Export { get; }
 

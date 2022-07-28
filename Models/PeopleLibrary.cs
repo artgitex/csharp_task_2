@@ -29,9 +29,9 @@ namespace Task_2.Model
             return await _cardRepository.GetFilteredCards(cardFilter);
         }       
 
-        public async Task CreateCard(Card card)
+        public async Task CreateCards(List<Card> cards)
         {
-            await _cardRepository.CreateCard(card);
+            await _cardRepository.CreateCards(cards);
         }
 
         public bool IsLibraryEmpty()
