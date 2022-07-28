@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Task_2.Commands
-{
-    public abstract class CommandBase : ICommand
-    {        
-        public event EventHandler? CanExecuteChanged;
+namespace Task_2.Commands;
 
-        public virtual bool CanExecute(object? parameter)
-        {
-            return true;
-        }
-        public abstract void Execute(object? parameter);
+public abstract class CommandBase : ICommand
+{        
+    public event EventHandler? CanExecuteChanged;
 
-        protected void OnCanExecutedChanged()
-        {
-            CanExecuteChanged?.Invoke(this, new EventArgs());
-        }     
+    public virtual bool CanExecute(object? parameter)
+    {
+        return true;
     }
+    public abstract void Execute(object? parameter);
+
+    protected void OnCanExecutedChanged()
+    {
+        CanExecuteChanged?.Invoke(this, new EventArgs());
+    }     
 }

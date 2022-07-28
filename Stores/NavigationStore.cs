@@ -1,32 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Task_2.ViewModels;
 
-namespace Reservoom.Stores
+namespace Reservoom.Stores;
+
+public class NavigationStore
 {
-    public class NavigationStore
+    private ViewModelBase _currentViewModel;
+
+    public ViewModelBase CurrentViewModel
     {
-        private ViewModelBase _currentViewModel;
-
-        public ViewModelBase CurrentViewModel
+        get => _currentViewModel;
+        set
         {
-            get => _currentViewModel;
-            set
-            {
-                _currentViewModel = value;
-                OnCurrentViewModelChanged();
-            }
+            _currentViewModel = value;
+            OnCurrentViewModelChanged();
         }
-
-        public event Action CurrentViewModelChanged;
-
-        private void OnCurrentViewModelChanged()
-        {
-            CurrentViewModelChanged?.Invoke();
-        }
-
     }
+
+    public event Action CurrentViewModelChanged;
+
+    private void OnCurrentViewModelChanged()
+    {
+        CurrentViewModelChanged?.Invoke();
+    }
+
 }
