@@ -23,9 +23,5 @@
         </Grid.Resources>
 
         <ContentControl Content="{Binding CurrentViewModel}"/>
-
-        <!--
-        <views:MainWindowView DataContext="{Binding CurrentViewModel}"/>
-        -->
     </Grid>
 </Window>

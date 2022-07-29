@@ -10,23 +10,53 @@ namespace Task_2.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
-    private readonly PeopleLibrary _peopleLibrary;
-    private readonly ObservableCollection<CardViewModel> _cards;
+    private readonly PeopleLibrary _peopleLibrary;    
+    private readonly ObservableCollection<Card> _cards;
     
-    public IEnumerable<CardViewModel> Cards => _cards;
-    public ICommand ImportCSV { get; }
-    public ICommand ShowData { get; }
+    public IEnumerable<Card> Cards => _cards;
+
+    private bool _isLoading;
+    public bool IsLoading
+    {
+        get
+        {
+            return _isLoading;
+        }
+        set
+        {
+            _isLoading = value;
+            OnPropertyChanged(nameof(IsLoading));
+        }
+    }
+
+    private int _pageSize = 100;
+    public int PageSize
+    {
+        get
+        {
+            return _pageSize;
+        }
+        set
+        {
+            _pageSize = value;
+            OnPropertyChanged(nameof(PageSize));
+        }
+    }
+
+    public ICommand ImportCSV { get; }    
     public ICommand LoadCards { get; }
     public ICommand Export { get; }
+    public ICommand Refresh { get; }
 
     public MainWindowViewModel(PeopleLibrary peopleLibrary, NavigationStore navigationStore, Func<ExportParametersViewModel> createExportParametersViewModel)
     {
-        _peopleLibrary = peopleLibrary;
-        _cards = new ObservableCollection<CardViewModel>();
+        _peopleLibrary = peopleLibrary;        
+        _cards = new ObservableCollection<Card>();
 
-        ImportCSV = new ImportCSVCommand(peopleLibrary, this);
+        ImportCSV = new ImportCSVCommand(_peopleLibrary, this);
         LoadCards = new LoadCardsCommand(_peopleLibrary, this);
-        Export = new NavigateCommand(navigationStore, createExportParametersViewModel);                  
+        Refresh = new RefrseshCardsCommand(_peopleLibrary, this);
+        Export = new ExportCommand(_peopleLibrary, navigationStore, createExportParametersViewModel);
     }
             
     public static MainWindowViewModel LoadViewModel(PeopleLibrary peopleLibrary, NavigationStore navigationStore, Func<ExportParametersViewModel> createExportParametersViewModel)
@@ -42,9 +72,8 @@ public class MainWindowViewModel : ViewModelBase
         _cards.Clear();
 
         foreach (Card card in cards)
-        {
-            CardViewModel cardViewModel = new CardViewModel(card);
-            _cards.Add(cardViewModel);
+        {            
+            _cards.Add(card);
         }            
     }        
 }

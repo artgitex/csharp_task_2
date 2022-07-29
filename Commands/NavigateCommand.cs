@@ -13,7 +13,7 @@ public class NavigateCommand : CommandBase
     {
         _navigationStore = navigationStore;
         _createViewModel = createViewModel;
-    }
+    }     
 
     public override void Execute(object? parameter)
     {

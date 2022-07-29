@@ -15,9 +15,9 @@ public class PeopleLibrary
         _cardRepository = cardRepository;
     }
 
-    public async Task<IEnumerable<Card>> GetAllCards()
+    public async Task<IEnumerable<Card>> GetAllCards(int rows)
     {            
-        return await _cardRepository.GetAllCards();
+        return await _cardRepository.GetAllCards(rows);
     }
 
     public async Task<IEnumerable<Card>> GetFilteredCards(Card cardFilter)

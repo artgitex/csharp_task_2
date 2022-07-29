@@ -3,13 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Task_2.Views"
+             xmlns:local="clr-namespace:Task_2.Views" 
+             xmlns:converters="clr-namespace:Task_2.Converters" 
+             xmlns:custom="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+     <UserControl.Resources>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+    </UserControl.Resources>    
+
+     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="300"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="270"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -27,72 +34,91 @@
                 Grid.Column="0"
                 Margin="0 5 0 0"
                 Content="Import CSV"
-                Command="{Binding ImportCSV}"/>
-
-            <Button
-                Grid.Row="0"
-                Grid.Column="1"
-                Margin="10 5 0 0"
-                Content="Show Data"
-                Command="{Binding ShowData}"/>
+                Command="{Binding ImportCSV}"/>            
 
             <Button
                 Grid.Row="0"
                 Grid.Column="2"
                 Margin="10 5 0 0"
-                Content="Export"
+                Content="Export XML/XLS"
                 Command="{Binding Export}"/>
         </Grid>
 
-        <ListView
-            Grid.Row="1"
-            Margin="0 25 0 0"  
-            ScrollViewer.VerticalScrollBarVisibility="Visible"
-            ScrollViewer.CanContentScroll="False"
-            ItemsSource="{Binding Cards}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Load Date">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding LoadDate}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+        <GroupBox Grid.Row="1" Header="Page Settings" Margin="0 15 0 0">            
+            <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                <TextBlock Text="Page size:" Margin="5" 
+                    TextAlignment="Right" VerticalAlignment="Center"/>
+                
+                <TextBox 
+                    x:Name="tbPageSize"
+                    Margin="5"                    
+                    Width="60"
+                    VerticalAlignment="Center"
+                    Text="{Binding PageSize, UpdateSourceTrigger=PropertyChanged}"/>
+                
+                <Button Content="Refresh"
+                        Style="{StaticResource Refresh}" 
+                        Command="{Binding Refresh}"/>                
+            </StackPanel>
+        </GroupBox>
 
-                    <GridViewColumn Header="First Name">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Padding="10 0 10 0" Text="{Binding FirstName}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+        <Grid  Grid.Row="2" Margin="0 15 0 0" >
+            
+            <custom:LoadingSpinner 
+                Diameter="100"
+                Thickness="5" 
+                Color="Gray"
+                IsLoading="{Binding IsLoading}"/>
+            
+            <ListView             
+                ScrollViewer.VerticalScrollBarVisibility="Visible"
+                ScrollViewer.CanContentScroll="False"
+                ItemsSource="{Binding Cards}"
+                Visibility = "{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Load Date">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding LoadDate}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                    <GridViewColumn Header="Last Name">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Padding="10 0 10 0" Text="{Binding LastName}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                        <GridViewColumn Header="First Name">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="10 0 10 0" Text="{Binding FirstName}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                    <GridViewColumn Header="City">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Padding="10 0 10 0" Text="{Binding City}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Country">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Padding="10 0 10 0" Text="{Binding Country}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                        <GridViewColumn Header="Last Name">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="10 0 10 0" Text="{Binding LastName}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
 
-                </GridView>
-            </ListView.View>
-        </ListView>
+                        <GridViewColumn Header="City">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="10 0 10 0" Text="{Binding City}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Country">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="10 0 10 0" Text="{Binding Country}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </UserControl>

@@ -20,15 +20,20 @@ public class LoadCardsCommand : AsyncCommandBase
     
     public override async Task ExecuteAsync(object parameter)
     {
+        _mainWindowViewModel.IsLoading = true;
+
         try
         {
-            IEnumerable<Card> cards = await _peopleLibrary.GetAllCards();
+            IEnumerable<Card> cards = await _peopleLibrary.GetAllCards(_mainWindowViewModel.PageSize);
             _mainWindowViewModel.UpdateCards(cards);
         }
         catch (Exception)
         {
-            MessageBox.Show("Failed to load data", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Failed to load data", "Error",
+                MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        _mainWindowViewModel.IsLoading = false;
 
     }
 }

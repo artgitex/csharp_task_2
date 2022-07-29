@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Task_2.Model;
 using Task_2.ViewModels;
 using Microsoft.Win32;
+using System;
 
 namespace Task_2.Commands;
 
@@ -13,6 +14,7 @@ public class ImportCSVCommand : CommandBase
     private readonly PeopleLibrary _peopleLibrary;
     private readonly MainWindowViewModel _mainWindowViewModel;  
     private string fileName;
+       
 
     public ICommand LoadCards { get; }        
 
@@ -24,7 +26,8 @@ public class ImportCSVCommand : CommandBase
 
     public override bool CanExecute(object? parameter)
     {
-        return _peopleLibrary.IsLibraryEmpty();
+        //return _peopleLibrary.IsLibraryEmpty();
+        return true;
     }
     
     public override async void Execute(object? parameter)
@@ -55,10 +58,11 @@ public class ImportCSVCommand : CommandBase
             await _peopleLibrary.CreateCards(cards);
 
         MessageBox.Show("Loading completed!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+               
 
         new LoadCardsCommand(_peopleLibrary, _mainWindowViewModel).Execute(null);            
     }
-
+    
     public async IAsyncEnumerable<string> AsyncFetchItems()
     {
         using StreamReader reader = File.OpenText(fileName);
