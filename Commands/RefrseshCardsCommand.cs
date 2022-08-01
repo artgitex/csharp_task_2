@@ -1,37 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Task_2.Model;
 using Task_2.ViewModels;
 
-namespace Task_2.Commands
+namespace Task_2.Commands;
+
+public class RefrseshCardsCommand : AsyncCommandBase
 {
-    public class RefrseshCardsCommand : AsyncCommandBase
+    private readonly PeopleLibrary _peopleLibrary;
+    private readonly MainWindowViewModel _mainWindowViewModel;
+
+    public RefrseshCardsCommand(PeopleLibrary peopleLibrary, MainWindowViewModel mainWindowViewModel)
     {
-        private readonly PeopleLibrary _peopleLibrary;
-        private readonly MainWindowViewModel _mainWindowViewModel;
+        _peopleLibrary = peopleLibrary;
+        _mainWindowViewModel = mainWindowViewModel;
+    }
 
-        public RefrseshCardsCommand(PeopleLibrary peopleLibrary, MainWindowViewModel mainWindowViewModel)
+    public override async Task ExecuteAsync(object parameter)
+    {
+        try
         {
-            _peopleLibrary = peopleLibrary;
-            _mainWindowViewModel = mainWindowViewModel;
+            IEnumerable<Card> cards = await _peopleLibrary.AsyncGetAllCards(_mainWindowViewModel.PageSize);
+            _mainWindowViewModel.UpdateCards(cards);
         }
-
-        public override async Task ExecuteAsync(object parameter)
+        catch (Exception)
         {
-            try
-            {
-                IEnumerable<Card> cards = await _peopleLibrary.GetAllCards(_mainWindowViewModel.PageSize);
-                _mainWindowViewModel.UpdateCards(cards);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Failed to load data", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            MessageBox.Show("Failed to load data", "Error",
+                MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

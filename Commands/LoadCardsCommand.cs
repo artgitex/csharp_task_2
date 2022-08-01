@@ -24,7 +24,7 @@ public class LoadCardsCommand : AsyncCommandBase
 
         try
         {
-            IEnumerable<Card> cards = await _peopleLibrary.GetAllCards(_mainWindowViewModel.PageSize);
+            IEnumerable<Card> cards = await _peopleLibrary.AsyncGetAllCards(_mainWindowViewModel.PageSize);
             _mainWindowViewModel.UpdateCards(cards);
         }
         catch (Exception)

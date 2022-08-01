@@ -5,10 +5,9 @@ using Task_2.Commands;
 using Task_2.Model;
 
 namespace Task_2.ViewModels;
-
 public class ExportParametersViewModel : ViewModelBase        
 {
-    private DateTime _loadDate = new DateTime(2022, 1, 1);
+    private DateTime _loadDate = new DateTime(2021, 11, 26);
     public DateTime LoadDate
     {
         get

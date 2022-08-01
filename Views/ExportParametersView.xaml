@@ -111,11 +111,11 @@
             Margin="0 25 0 0"
             Orientation="Horizontal">
             <Button
-                Content="XML" 
+                Content="Export XML" 
                 Command="{Binding XMLCommand}"/>
             <Button
                 Margin="10 0 0 0"
-                Content="XLS" 
+                Content="Export XLS" 
                 Command="{Binding XLSCommand}"/>
             <Button
                 Margin="20 0 0 0"

@@ -15,19 +15,19 @@ public class PeopleLibrary
         _cardRepository = cardRepository;
     }
 
-    public async Task<IEnumerable<Card>> GetAllCards(int rows)
+    public async Task<IEnumerable<Card>> AsyncGetAllCards(int rows)
     {            
-        return await _cardRepository.GetAllCards(rows);
+        return await _cardRepository.AsyncGetAllCards(rows);
     }
 
-    public async Task<IEnumerable<Card>> GetFilteredCards(Card cardFilter)
+    public async Task<IEnumerable<Card>> AsyncGetFilteredCards(Card cardFilter)
     {
-        return await _cardRepository.GetFilteredCards(cardFilter);
+        return await _cardRepository.AsyncGetFilteredCards(cardFilter);
     }       
 
-    public async Task CreateCards(List<Card> cards)
+    public async Task AsyncCreateCards(List<Card> cards)
     {
-        await _cardRepository.CreateCards(cards);
+        await _cardRepository.AsyncCreateCards(cards);
     }
 
     public bool IsLibraryEmpty()

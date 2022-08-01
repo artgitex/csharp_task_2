@@ -7,7 +7,6 @@ using Task_2.Commands;
 using Task_2.Model;
 
 namespace Task_2.ViewModels;
-
 public class MainWindowViewModel : ViewModelBase
 {
     private readonly PeopleLibrary _peopleLibrary;    

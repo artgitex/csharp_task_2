@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ namespace Task_2.Services;
 
 public class CardRepository : ICardRepository
 {
-    public async Task CreateCards(List<Card> cards)
+    public async Task AsyncCreateCards(List<Card> cards)
     {
         using (PeopleLibraryDbContext db = new PeopleLibraryDbContext())
         {
@@ -19,7 +18,7 @@ public class CardRepository : ICardRepository
         }        
     }     
 
-    public async Task<IEnumerable<Card>> GetAllCards(int rows)
+    public async Task<IEnumerable<Card>> AsyncGetAllCards(int rows)
     {
         using (PeopleLibraryDbContext db = new PeopleLibraryDbContext())
         {            
@@ -28,7 +27,7 @@ public class CardRepository : ICardRepository
         }
     }
 
-    public async Task<IEnumerable<Card>> GetFilteredCards(Card cardFilter)
+    public async Task<IEnumerable<Card>> AsyncGetFilteredCards(Card cardFilter)
     {
         string loadDate = cardFilter.LoadDate;
         string firstName = cardFilter.FirstName;

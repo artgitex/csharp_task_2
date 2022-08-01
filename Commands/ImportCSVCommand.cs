@@ -5,7 +5,6 @@ using System.Windows.Input;
 using Task_2.Model;
 using Task_2.ViewModels;
 using Microsoft.Win32;
-using System;
 
 namespace Task_2.Commands;
 
@@ -25,8 +24,7 @@ public class ImportCSVCommand : CommandBase
     }
 
     public override bool CanExecute(object? parameter)
-    {
-        //return _peopleLibrary.IsLibraryEmpty();
+    {        
         return true;
     }
     
@@ -48,14 +46,14 @@ public class ImportCSVCommand : CommandBase
                 cards.Add(card);
             else
             {
-                await _peopleLibrary.CreateCards(cards);
+                await _peopleLibrary.AsyncCreateCards(cards);
                 cards.Clear();
                 cards.Add(card);
             }                                
         }
 
         if (cards.Count != 0)
-            await _peopleLibrary.CreateCards(cards);
+            await _peopleLibrary.AsyncCreateCards(cards);
 
         MessageBox.Show("Loading completed!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                

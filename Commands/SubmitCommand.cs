@@ -27,6 +27,8 @@ public class SubmitCommand : AsyncCommandBase
 
     public override async Task ExecuteAsync(object parameter)
     {
+        Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+
         try
         {
             Card cardFilter = new Card(
@@ -37,7 +39,7 @@ public class SubmitCommand : AsyncCommandBase
                 _exportParametersViewModel.Country
                 );
 
-            IEnumerable<Card> cards = await _peopleLibrary.GetFilteredCards(cardFilter);
+            IEnumerable<Card> cards = await _peopleLibrary.AsyncGetFilteredCards(cardFilter);
 
             if (_type == "xml")
             {                    
@@ -53,12 +55,23 @@ public class SubmitCommand : AsyncCommandBase
                         new XElement("County", card.Country),
                         new XElement("City", card.City)));
                 }
+                
+                dlg.FileName = "PeopleExtract";
+                dlg.DefaultExt = ".xml";
+                dlg.Filter = "XML files (*.xml)|*.xml";
 
-                doc.Save(xmlFile);
+                Nullable<bool> result = dlg.ShowDialog();
+
+                if (result == true)
+                {
+                    string filename = dlg.FileName;
+                    doc.Save(filename);
+
+                    MessageBox.Show("Export completed!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }                
             }
             if (_type == "xls")
             {
-
                 using var wbook = new XLWorkbook();
 
                 var ws = wbook.Worksheets.Add("Sheet1");
@@ -83,12 +96,22 @@ public class SubmitCommand : AsyncCommandBase
                     ws.Cell(x, y + 5).Value = card.Country;
 
                     x++; y = 1;
-                }                    
+                }
+                
+                dlg.FileName = "PeopleExtract";
+                dlg.DefaultExt = ".xlsx";
+                dlg.Filter = "Excel File(.xlsx) | * .xlsx";
 
-                wbook.SaveAs("PeopleExtract.xlsx");
+                Nullable<bool> result = dlg.ShowDialog();
+
+                if (result == true)
+                {                 
+                    string filename = dlg.FileName;
+                    wbook.SaveAs(filename);
+
+                    MessageBox.Show("Export completed!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
-
-            MessageBox.Show("Export completed, check bin folder!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         catch (Exception)
         {
@@ -97,9 +120,7 @@ public class SubmitCommand : AsyncCommandBase
     }
 
     public override bool CanExecute(object? parameter)
-    {
-        return true;
-        
+    {   
         return !string.IsNullOrEmpty(_exportParametersViewModel.FirstName) ||
             !string.IsNullOrEmpty(_exportParametersViewModel.LastName) ||
             !string.IsNullOrEmpty(_exportParametersViewModel.City) ||

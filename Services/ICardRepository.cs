@@ -6,8 +6,8 @@ namespace Task_2.Services;
 
 public interface ICardRepository
 {    
-    Task CreateCards(List<Card> cards);        
-    Task<IEnumerable<Card>> GetAllCards(int rows);
-    Task<IEnumerable<Card>> GetFilteredCards(Card cardFilter);        
+    Task AsyncCreateCards(List<Card> cards);        
+    Task<IEnumerable<Card>> AsyncGetAllCards(int rows);
+    Task<IEnumerable<Card>> AsyncGetFilteredCards(Card cardFilter);        
     bool IsLibraryEmpty();
 }
